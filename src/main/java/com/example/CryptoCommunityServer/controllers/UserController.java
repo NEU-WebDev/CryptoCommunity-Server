@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
+
   @Autowired
   UserService service;
+
+  List<BaseUserJoined> users = new ArrayList<BaseUserJoined>();
 
   @PostMapping("/api/users/register")
   public BaseUserJoined register(
@@ -25,6 +28,7 @@ public class UserController {
       HttpSession session
   ) {
     session.setAttribute("currentUser", user);
+    users.add(user);
     return service.createUser(user);
   }
 
@@ -34,9 +38,11 @@ public class UserController {
       HttpSession session
   ) {
     BaseUserJoined user = service.findUser(credentials.getUsername(), credentials.getPassword());
-    if (user != null) {
+    System.out.println(user);
+    for (BaseUserJoined user2 : users){
+    if (user2.getUsername().equals(user)) {
       session.setAttribute("currentUser", user);
-    }
+    }}
     return user;
   }
 
