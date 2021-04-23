@@ -1,11 +1,13 @@
 package com.example.CryptoCommunityServer.controllers;
 
 import com.example.CryptoCommunityServer.models.BaseUserJoined;
+import com.example.CryptoCommunityServer.repositories.UserRepository;
 import com.example.CryptoCommunityServer.services.UserService;
 import com.fasterxml.jackson.databind.ser.Serializers.Base;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @Autowired
-  UserService service;
+  UserRepository repository;
 
   List<BaseUserJoined> users = new ArrayList<BaseUserJoined>();
 
@@ -29,7 +31,7 @@ public class UserController {
   ) {
     session.setAttribute("currentUser", user);
     users.add(user);
-    return service.createUser(user);
+    return repository.save(user);
   }
 
   @PostMapping("/api/users/login")
@@ -37,13 +39,12 @@ public class UserController {
       @RequestBody BaseUserJoined credentials,
       HttpSession session
   ) {
-    BaseUserJoined user = service.findUser(credentials.getUsername(), credentials.getPassword());
-    System.out.println(user);
-    for (BaseUserJoined user2 : users){
-    if (user2.getUsername().equals(user)) {
+    BaseUserJoined user = repository.findUserByCredentials(credentials.getUsername(), credentials.getPassword());
+    if (user != null) {
       session.setAttribute("currentUser", user);
-    }}
-    return user;
+      return user;
+    }
+    return null;
   }
 
   @PostMapping("/api/users/profile")
