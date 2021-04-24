@@ -16,7 +16,16 @@ public class UserService {
   }
 
   public BaseUserJoined findUser(String username, String password) {
-    return repository.findUser(username, password);
+    return repository.findUserByCredentials(username, password);
+  }
+
+  public BaseUserJoined updateUser(String userId, BaseUserJoined newUser) {
+    BaseUserJoined originalUser = repository.findUserByUserName(userId);
+    System.out.println(userId);
+    originalUser.setUsername(newUser.getUsername());
+    System.out.println(originalUser.getUsername());
+    repository.save(originalUser);
+    return originalUser;
   }
 
 }

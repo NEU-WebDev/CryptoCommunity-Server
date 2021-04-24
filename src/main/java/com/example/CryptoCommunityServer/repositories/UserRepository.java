@@ -13,4 +13,8 @@ public interface UserRepository extends CrudRepository<BaseUserJoined, Long> {
   public BaseUserJoined findUserByCredentials(
       @Param("uname") String username,
       @Param("pass") String password);
+
+  @Query("SELECT user FROM BaseUserJoined user WHERE user.username=:uname")
+  public BaseUserJoined findUserByUserName(
+      @Param("uname") String username);
 }

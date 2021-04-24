@@ -11,6 +11,7 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @Autowired
-  UserRepository repository;
+  UserService service;
 
   List<BaseUserJoined> users = new ArrayList<BaseUserJoined>();
 
@@ -31,7 +32,7 @@ public class UserController {
   ) {
     session.setAttribute("currentUser", user);
     users.add(user);
-    return repository.save(user);
+    return service.createUser(user);
   }
 
   @PostMapping("/api/users/login")
@@ -39,7 +40,7 @@ public class UserController {
       @RequestBody BaseUserJoined credentials,
       HttpSession session
   ) {
-    BaseUserJoined user = repository.findUserByCredentials(credentials.getUsername(), credentials.getPassword());
+    BaseUserJoined user = service.findUser(credentials.getUsername(), credentials.getPassword());
     if (user != null) {
       session.setAttribute("currentUser", user);
       return user;
@@ -51,6 +52,15 @@ public class UserController {
   public BaseUserJoined profile(HttpSession session) {
     BaseUserJoined currentUser = (BaseUserJoined) session.getAttribute("currentUser");
     return currentUser;
+  }
+
+  @PostMapping("/api/users/update/{uid}")
+  public BaseUserJoined updateUserName(
+    @PathVariable ("uid") String uid,
+    @RequestBody BaseUserJoined newUser) {
+    System.out.println("MADE IT HERE");
+    service.updateUser(uid, newUser);
+    return newUser;
   }
 
   @PostMapping("api/users/logout")
