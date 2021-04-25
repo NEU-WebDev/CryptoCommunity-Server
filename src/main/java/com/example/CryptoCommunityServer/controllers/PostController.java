@@ -8,38 +8,45 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value="/**", method={RequestMethod.OPTIONS})
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class PostController {
 
   @Autowired
   PostService service;
-
   List<Post> posts = new ArrayList<Post>();
 
-  @PostMapping("/api/posts")
+  @PostMapping("/api/users/{userId}/posts")
   public Post createPost(
-      @RequestBody Post post,
+      @RequestBody String post,
       HttpSession session
   ) {
-    java.sql.Date sqlDate = java.sql.Date.valueOf(LocalDate.now()) ;
-    post.setPostDate(sqlDate.toString());
-    post.setTitle("New Title");
-    post.setFlagged(false);
+    Post generatedPost = new Post();
+    java.sql.Date sqlDate = java.sql.Date.valueOf(LocalDate.now());
+    generatedPost.setPostDate(sqlDate.toString());
+    generatedPost.setBody(post);
+    generatedPost.setTitle("New Title");
+    generatedPost.setFlagged(false);
     session.setAttribute("currentUser", post);
-    posts.add(post);
-    return service.createPost(post);
+    posts.add(generatedPost);
+    return service.createPost(generatedPost);
   }
 
-  @GetMapping("/api/users/{userId}/posts")
+  @GetMapping("/api/users/{userId}/userPosts")
   public List<Post> findPostByUserId(
       @PathVariable("userId") String uid
   ) {
@@ -51,6 +58,12 @@ public class PostController {
       @PathVariable("postId") String pid
   ) {
     return service.findPostById(pid);
+  }
+
+  @GetMapping("/api/posts")
+  public List<Post> findRecentPosts() {
+    System.out.println(service.findRecentPosts());
+    return service.findRecentPosts();
   }
 
   @DeleteMapping("/api/post/delete")

@@ -13,6 +13,7 @@ public class Post {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String postDate;
   @OneToOne
   private BaseUserJoined author;
@@ -31,6 +32,14 @@ public class Post {
   }
 
   public Post() {
+  }
+
+  public BaseUserJoined getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(BaseUserJoined author) {
+    this.author = author;
   }
 
   public Long getId() {
