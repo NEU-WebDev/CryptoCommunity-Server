@@ -19,8 +19,8 @@ public class BaseUserJoined {
   private Long id;
   private String username;
   private String password;
-  @OneToMany
-  private List<Post> posts;
+//  @OneToMany
+//  private List<Post> posts;
 
   public String getUsername() {
     return username;
@@ -38,11 +38,11 @@ public class BaseUserJoined {
     this.password = password;
   }
 
-  public List<Post> getPosts() {
-    return posts;
-  }
-
-  public void setPosts(List<Post> posts) {
-    this.posts = posts;
-  }
+//  public List<Post> getPosts() {
+//    return posts;
+//  }
+//
+//  public void setPosts(List<Post> posts) {
+//    this.posts = posts;
+//  }
 }

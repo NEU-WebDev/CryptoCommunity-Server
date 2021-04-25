@@ -1,14 +1,11 @@
 package com.example.CryptoCommunityServer.controllers;
 
 import com.example.CryptoCommunityServer.models.BaseUserJoined;
+import com.example.CryptoCommunityServer.models.NormalUserJoined;
 import com.example.CryptoCommunityServer.services.UserService;
-import com.fasterxml.jackson.databind.ser.Serializers.Base;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +17,12 @@ public class UserController {
   UserService service;
 
   @PostMapping("/api/users/register")
-  public BaseUserJoined register(
-      @RequestBody BaseUserJoined user,
+  public NormalUserJoined register(
+      @RequestBody NormalUserJoined user,
       HttpSession session
   ) {
     session.setAttribute("currentUser", user);
-    return service.createUser(user);
+    return service.createNormalUser(user);
   }
 
   @PostMapping("/api/users/login")
