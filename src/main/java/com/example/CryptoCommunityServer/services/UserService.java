@@ -5,7 +5,6 @@ import com.example.CryptoCommunityServer.models.NormalUserJoined;
 import com.example.CryptoCommunityServer.repositories.AdminUserRepository;
 import com.example.CryptoCommunityServer.repositories.BaseUserRepository;
 import com.example.CryptoCommunityServer.repositories.NormalUserRepository;
-import com.example.CryptoCommunityServer.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,15 @@ public class UserService {
   }
 
   public BaseUserJoined findUser(String username, String password) {
-    return baseRepo.findUser(username, password);
+    return baseRepo.findUserByCredentials(username, password);
   }
 
+  public BaseUserJoined updateUser(String userId, BaseUserJoined newUser) {
+    BaseUserJoined originalUser = baseRepo.findUserByUserName(userId);
+    System.out.println(userId);
+    originalUser.setUsername(newUser.getUsername());
+    System.out.println(originalUser.getUsername());
+    baseRepo.save(originalUser);
+    return originalUser;
+  }
 }
