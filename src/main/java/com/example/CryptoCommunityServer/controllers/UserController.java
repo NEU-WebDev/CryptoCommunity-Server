@@ -6,12 +6,8 @@ import com.example.CryptoCommunityServer.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,15 +23,6 @@ public class UserController {
   @Autowired
   UserService service;
   List<BaseUserJoined> users = new ArrayList<BaseUserJoined>();
-
-//  @RequestMapping(value="/api/users/update/{username}", method = RequestMethod.OPTIONS)
-//  ResponseEntity<?> collectionOptions()
-//  {
-//    return ResponseEntity
-//        .ok()
-//        .allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.OPTIONS)
-//        .build();
-//  }
 
   @PostMapping("/api/users/register")
   public NormalUserJoined register(
@@ -53,11 +40,13 @@ public class UserController {
       HttpSession session
   ) {
     BaseUserJoined user = service.findUser(credentials.getUsername(), credentials.getPassword());
+    BaseUserJoined badUser = new BaseUserJoined();
+    badUser.setUsername("BadLogin");
     if (user != null) {
       session.setAttribute("currentUser", user);
       return user;
     }
-    return null;
+  return badUser;
   }
 
   @PostMapping("/api/users/profile")
@@ -73,8 +62,7 @@ public class UserController {
     return service.checkIfAdmin(uid);
   }
 
-  @RequestMapping(value="/api/users/{username}/update", method={RequestMethod.OPTIONS})
-  @PostMapping("/api/users/{username}/update")
+  @PostMapping("/api/users/{username}/updateUsername")
   public BaseUserJoined updateUserName(
     @PathVariable ("username") String uid,
     @RequestBody BaseUserJoined newUser

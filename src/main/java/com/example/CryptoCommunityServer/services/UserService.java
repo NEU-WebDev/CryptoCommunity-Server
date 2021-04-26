@@ -33,7 +33,12 @@ public class UserService {
   }
 
   public BaseUserJoined findUserByUsername(String username) {
-    return baseRepo.findUserByUserName(username);
+
+    if(baseRepo.findUserByUserName(username) == null) {
+      return baseRepo.findUserByUserName("BadUser");
+    } else {
+      return baseRepo.findUserByUserName(username);
+    }
   }
 
   public boolean checkIfAdmin(String userId) {

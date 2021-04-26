@@ -2,9 +2,7 @@ package com.example.CryptoCommunityServer.services;
 
 
 import com.example.CryptoCommunityServer.models.Comment;
-import com.example.CryptoCommunityServer.models.Post;
 import com.example.CryptoCommunityServer.repositories.CommentRepository;
-import com.example.CryptoCommunityServer.repositories.PostRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
