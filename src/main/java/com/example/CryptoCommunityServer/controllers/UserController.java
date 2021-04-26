@@ -65,11 +65,13 @@ public class UserController {
     BaseUserJoined currentUser = (BaseUserJoined) session.getAttribute("currentUser");
     return currentUser;
   }
-  @RequestMapping(value="/api/users/update/{username}", method={RequestMethod.OPTIONS})
-  @PostMapping("/api/users/update/{username}")
+
+  @RequestMapping(value="/api/users/{username}/update", method={RequestMethod.OPTIONS})
+  @PostMapping("/api/users/{username}/update")
   public BaseUserJoined updateUserName(
     @PathVariable ("username") String uid,
-    @RequestBody BaseUserJoined newUser) {
+    @RequestBody BaseUserJoined newUser
+  ) {
     System.out.println("MADE IT HERE");
     service.updateUser(uid, newUser);
     return newUser;

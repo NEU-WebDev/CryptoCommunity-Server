@@ -1,46 +1,34 @@
 package com.example.CryptoCommunityServer.models;
 
+import javax.annotation.processing.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name ="comments")
+public class Comment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private String postDate;
   private String author;
-  private String title;
+  private String associatedPost;
   @Lob
   private String body;
-  private Boolean isFlagged;
 
-  public Post(Long id, String postDate, String author, String title,
-      String body, Boolean isFlagged) {
+  public Comment(Long id, String postDate,
+      String author, String body) {
     this.id = id;
     this.postDate = postDate;
     this.author = author;
-    this.title = title;
     this.body = body;
-    this.isFlagged = isFlagged;
   }
 
-  public Post() {
-  }
-
-  public String getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(String author) {
-    this.author = author;
+  public Comment() {
   }
 
   public Long getId() {
@@ -59,12 +47,12 @@ public class Post {
     this.postDate = postDate;
   }
 
-  public String getTitle() {
-    return title;
+  public String getAuthor() {
+    return author;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setAuthor(String author) {
+    this.author = author;
   }
 
   public String getBody() {
@@ -75,11 +63,11 @@ public class Post {
     this.body = body;
   }
 
-  public Boolean getFlagged() {
-    return isFlagged;
+  public String getAssociatedPost() {
+    return associatedPost;
   }
 
-  public void setFlagged(Boolean flagged) {
-    isFlagged = flagged;
+  public void setAssociatedPost(String associatedPost) {
+    this.associatedPost = associatedPost;
   }
 }

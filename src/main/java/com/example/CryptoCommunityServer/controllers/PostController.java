@@ -1,6 +1,7 @@
 package com.example.CryptoCommunityServer.controllers;
 
 import com.example.CryptoCommunityServer.models.BaseUserJoined;
+import com.example.CryptoCommunityServer.services.UserService;
 import com.example.CryptoCommunityServer.models.Post;
 import com.example.CryptoCommunityServer.services.PostService;
 import java.time.LocalDate;
@@ -25,23 +26,23 @@ public class PostController {
 
   @Autowired
   PostService service;
+  UserService userService;
   List<Post> posts = new ArrayList<Post>();
 
   @PostMapping("/api/users/{userId}/posts")
   public Post createPost(
+      @PathVariable("userId") String uid,
       @RequestBody Post post,
       HttpSession session
   ) {
     System.out.println(post.toString());
-    BaseUserJoined currentUser = (BaseUserJoined) session.getAttribute("currentUser");
     Post generatedPost = new Post();
     java.sql.Date sqlDate = java.sql.Date.valueOf(LocalDate.now());
     generatedPost.setPostDate(sqlDate.toString());
     generatedPost.setBody(post.getBody());
     generatedPost.setTitle(post.getTitle());
-    generatedPost.setAuthor(currentUser);
+    generatedPost.setAuthor(uid);
     generatedPost.setFlagged(false);
-    session.setAttribute("currentUser", post);
     posts.add(generatedPost);
     return service.createPost(generatedPost);
   }

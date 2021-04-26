@@ -31,6 +31,10 @@ public class UserService {
     return baseRepo.findUserByCredentials(username, password);
   }
 
+  public BaseUserJoined findUserByUsername(String username) {
+    return baseRepo.findUserByUserName(username);
+  }
+
   public BaseUserJoined updateUser(String userId, BaseUserJoined newUser) {
     BaseUserJoined originalUser = baseRepo.findUserByUserName(userId);
     System.out.println(userId);
