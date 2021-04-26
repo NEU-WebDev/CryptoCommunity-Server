@@ -1,6 +1,5 @@
 package com.example.CryptoCommunityServer.controllers;
 
-import com.example.CryptoCommunityServer.models.BaseUserJoined;
 import com.example.CryptoCommunityServer.services.UserService;
 import com.example.CryptoCommunityServer.models.Post;
 import com.example.CryptoCommunityServer.services.PostService;

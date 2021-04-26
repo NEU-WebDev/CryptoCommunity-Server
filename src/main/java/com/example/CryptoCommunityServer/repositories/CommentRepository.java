@@ -1,7 +1,6 @@
 package com.example.CryptoCommunityServer.repositories;
 
 import com.example.CryptoCommunityServer.models.Comment;
-import com.example.CryptoCommunityServer.models.Post;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

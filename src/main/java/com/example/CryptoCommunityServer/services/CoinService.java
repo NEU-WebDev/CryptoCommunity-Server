@@ -2,7 +2,6 @@ package com.example.CryptoCommunityServer.services;
 
 
 import com.example.CryptoCommunityServer.models.Coin;
-import com.example.CryptoCommunityServer.models.Post;
 import com.example.CryptoCommunityServer.repositories.CoinRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
