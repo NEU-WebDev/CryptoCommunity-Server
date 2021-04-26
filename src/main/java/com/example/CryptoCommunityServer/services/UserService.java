@@ -1,5 +1,6 @@
 package com.example.CryptoCommunityServer.services;
 
+import com.example.CryptoCommunityServer.models.AdminUserJoined;
 import com.example.CryptoCommunityServer.models.BaseUserJoined;
 import com.example.CryptoCommunityServer.models.NormalUserJoined;
 import com.example.CryptoCommunityServer.repositories.AdminUserRepository;
@@ -33,6 +34,10 @@ public class UserService {
 
   public BaseUserJoined findUserByUsername(String username) {
     return baseRepo.findUserByUserName(username);
+  }
+
+  public boolean checkIfAdmin(String userId) {
+    return adminRepo.findById(Long.valueOf(userId)).isPresent();
   }
 
   public BaseUserJoined updateUser(String userId, BaseUserJoined newUser) {

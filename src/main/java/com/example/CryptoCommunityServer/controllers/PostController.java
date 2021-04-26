@@ -67,7 +67,7 @@ public class PostController {
     return service.findRecentPosts();
   }
 
-  @DeleteMapping("/api/post/delete")
+  @DeleteMapping("/api/posts/{postId}")
   public Integer deletePost(
       @PathVariable("postId") String pid) {
     return service.deletePostById(pid);

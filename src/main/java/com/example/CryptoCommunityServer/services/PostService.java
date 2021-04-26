@@ -28,7 +28,8 @@ public class PostService {
   }
 
   public Integer deletePostById(String postId){
-    return repository.deletePostById(postId);
+    repository.deleteById(Long.valueOf(postId));
+    return 1;
   }
 
 }

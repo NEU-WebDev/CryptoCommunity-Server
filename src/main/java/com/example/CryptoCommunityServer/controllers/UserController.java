@@ -66,6 +66,13 @@ public class UserController {
     return currentUser;
   }
 
+  @PostMapping("/api/users/{userId}/admin")
+  public boolean checkIfAdmin(
+      @PathVariable("userId") String uid
+  ) {
+    return service.checkIfAdmin(uid);
+  }
+
   @RequestMapping(value="/api/users/{username}/update", method={RequestMethod.OPTIONS})
   @PostMapping("/api/users/{username}/update")
   public BaseUserJoined updateUserName(
