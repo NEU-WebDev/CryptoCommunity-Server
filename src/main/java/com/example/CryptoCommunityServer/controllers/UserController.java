@@ -28,15 +28,6 @@ public class UserController {
   UserService service;
   List<BaseUserJoined> users = new ArrayList<BaseUserJoined>();
 
-//  @RequestMapping(value="/api/users/update/{username}", method = RequestMethod.OPTIONS)
-//  ResponseEntity<?> collectionOptions()
-//  {
-//    return ResponseEntity
-//        .ok()
-//        .allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.OPTIONS)
-//        .build();
-//  }
-
   @PostMapping("/api/users/register")
   public NormalUserJoined register(
       @RequestBody NormalUserJoined user,
@@ -53,11 +44,13 @@ public class UserController {
       HttpSession session
   ) {
     BaseUserJoined user = service.findUser(credentials.getUsername(), credentials.getPassword());
+    BaseUserJoined badUser = new BaseUserJoined();
+    badUser.setUsername("BadLogin");
     if (user != null) {
       session.setAttribute("currentUser", user);
       return user;
     }
-    return null;
+  return badUser;
   }
 
   @PostMapping("/api/users/profile")
@@ -66,8 +59,7 @@ public class UserController {
     return currentUser;
   }
 
-  @RequestMapping(value="/api/users/{username}/update", method={RequestMethod.OPTIONS})
-  @PostMapping("/api/users/{username}/update")
+  @PostMapping("/api/users/{username}/updateUsername")
   public BaseUserJoined updateUserName(
     @PathVariable ("username") String uid,
     @RequestBody BaseUserJoined newUser

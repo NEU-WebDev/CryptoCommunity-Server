@@ -12,7 +12,7 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
   @Query(value="SELECT * FROM comments WHERE associated_post=:postId", nativeQuery = true)
   public List<Comment> findCommentsByPost(@Param("postId") String postId);
 
-  @Query(value="SELECT * FROM comments WHERE author=:uid", nativeQuery = true)
+  @Query(value="SELECT * FROM wbdv_sp21_02_schema.comments WHERE author=:uid", nativeQuery = true)
   public List<Comment> findCommentsByUser(@Param("uid") String uid);
 
   @Query(value="DELETE FROM comments WHERE id=:commentId", nativeQuery = true)

@@ -61,7 +61,7 @@ public class CommentController {
     return service.findCommentsByPost(pid);
   }
 
-  @GetMapping("/api/users/{userId}/comments")
+  @GetMapping("/api/users/{userId}/myComments")
   public List<Comment> findCommentsForUser(
       @PathVariable("userId") String uid
   ){
