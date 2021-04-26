@@ -1,16 +1,13 @@
 package com.example.CryptoCommunityServer.controllers;
 
+import com.example.CryptoCommunityServer.models.BaseUserJoined;
 import com.example.CryptoCommunityServer.models.Post;
 import com.example.CryptoCommunityServer.services.PostService;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +29,17 @@ public class PostController {
 
   @PostMapping("/api/users/{userId}/posts")
   public Post createPost(
-      @RequestBody String post,
+      @RequestBody Post post,
       HttpSession session
   ) {
+    System.out.println(post.toString());
+    BaseUserJoined currentUser = (BaseUserJoined) session.getAttribute("currentUser");
     Post generatedPost = new Post();
     java.sql.Date sqlDate = java.sql.Date.valueOf(LocalDate.now());
     generatedPost.setPostDate(sqlDate.toString());
-    generatedPost.setBody(post);
-    generatedPost.setTitle("New Title");
+    generatedPost.setBody(post.getBody());
+    generatedPost.setTitle(post.getTitle());
+    generatedPost.setAuthor(currentUser);
     generatedPost.setFlagged(false);
     session.setAttribute("currentUser", post);
     posts.add(generatedPost);
@@ -53,7 +53,7 @@ public class PostController {
     return service.findPostByUserId(uid);
   }
 
-  @GetMapping("/api/getPost")
+  @GetMapping("/api/getPost/{postId}")
   public Post findPostById(
       @PathVariable("postId") String pid
   ) {

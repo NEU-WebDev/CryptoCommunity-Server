@@ -23,8 +23,6 @@ public class PostService {
   public List<Post> findRecentPosts(){
     return repository.findRecentPost();
   }
-
-
   public Post findPostById(String postId){
     return repository.findPostById(postId);
   }
