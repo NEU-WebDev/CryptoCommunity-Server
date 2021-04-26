@@ -1,19 +1,14 @@
 package com.example.CryptoCommunityServer.controllers;
 
 import com.example.CryptoCommunityServer.models.Comment;
-import com.example.CryptoCommunityServer.models.Post;
 import com.example.CryptoCommunityServer.services.CommentService;
 import com.example.CryptoCommunityServer.services.UserService;
 import com.example.CryptoCommunityServer.services.PostService;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
