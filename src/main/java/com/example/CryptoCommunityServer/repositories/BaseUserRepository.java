@@ -13,6 +13,6 @@ public interface BaseUserRepository extends CrudRepository<BaseUserJoined, Long>
   @Query("SELECT user FROM BaseUserJoined user WHERE user.username=:uname AND user.password=:pass")
   public BaseUserJoined findUserByCredentials(@Param("uname") String username, @Param("pass") String password);
 
-  @Query(value = "SELECT * FROM wbdv_sp21_02_schema.joined_base_user WHERE username=:uname", nativeQuery = true)
+  @Query(value = "SELECT user FROM BaseUserJoined user WHERE user.username=:uname")
   public BaseUserJoined findUserByUserName(@Param("uname") String username);
 }

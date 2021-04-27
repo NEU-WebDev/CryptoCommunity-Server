@@ -33,16 +33,25 @@ public class UserService {
   }
 
   public BaseUserJoined findUserByUsername(String username) {
-
     if(baseRepo.findUserByUserName(username) == null) {
+      System.out.println("got here"+ username);
       return baseRepo.findUserByUserName("BadUser");
     } else {
       return baseRepo.findUserByUserName(username);
     }
   }
 
-  public boolean checkIfAdmin(String userId) {
-    return adminRepo.findById(Long.valueOf(userId)).isPresent();
+  public boolean checkIfAdmin(String username) {
+    return adminRepo.findById(findUserByUsername(username).getId()).isPresent();
+  }
+
+  public Integer makeAdmin(String username) {
+    BaseUserJoined user = findUserByUsername(username);
+    Long id = user.getId();
+    String password = user.getPassword();
+    normalRepo.deleteById(id);
+    adminRepo.save(new AdminUserJoined(id, 0, username, password));
+    return 1;
   }
 
   public BaseUserJoined updateUser(String userId, BaseUserJoined newUser) {

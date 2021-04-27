@@ -18,4 +18,15 @@ public class AdminUserJoined extends BaseUserJoined {
     this.postsDeleted = postsDeleted;
   }
 
+  public AdminUserJoined(Long id, int postsDeleted, String username, String password) {
+    this.id = id;
+    this.postsDeleted = postsDeleted;
+    this.username = username;
+    this.password = password;
+  }
+
+  public AdminUserJoined() {
+
+  }
+
 }

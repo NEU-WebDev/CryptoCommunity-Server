@@ -55,11 +55,28 @@ public class UserController {
     return currentUser;
   }
 
-  @PostMapping("/api/users/{userId}/admin")
-  public boolean checkIfAdmin(
-      @PathVariable("userId") String uid
+  @PostMapping("/api/users/profile/{profileId}")
+  public BaseUserJoined getProfile(
+      @PathVariable("profileId") String pId,
+      @RequestBody String username
   ) {
-    return service.checkIfAdmin(uid);
+    BaseUserJoined currentUser = service.findUserByUsername(username);
+    return currentUser;
+  }
+
+
+  @PostMapping("/api/users/{username}/admin")
+  public boolean checkIfAdmin(
+      @PathVariable("username") String username
+  ) {
+    return service.checkIfAdmin(username);
+  }
+
+  @PostMapping("/api/users/{username}/makeAdmin")
+  public Integer makeAdmin(
+      @PathVariable("username") String username
+  ) {
+    return service.makeAdmin(username);
   }
 
   @PostMapping("/api/users/{username}/updateUsername")
