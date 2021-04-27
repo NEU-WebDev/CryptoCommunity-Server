@@ -17,7 +17,7 @@ public interface PostRepository extends CrudRepository<Post, Long> {
   @Query(value="DELETE FROM posts WHERE id=:postId", nativeQuery = true)
   public Integer deletePostById(@Param("postId") String postId);
 
-  @Query(value="SELECT * FROM wbdv_sp21_02_schema.posts ORDER BY id DESC LIMIT 10", nativeQuery = true)
+  @Query(value="SELECT * FROM heroku_fa1814fc8cbd342.posts ORDER BY id DESC LIMIT 10", nativeQuery = true)
   public List<Post> findRecentPost();
 
 
