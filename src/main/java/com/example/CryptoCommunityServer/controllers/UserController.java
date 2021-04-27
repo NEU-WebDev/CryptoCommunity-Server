@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value="/**", method={RequestMethod.OPTIONS})
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "https://cryptocommunity.herokuapp.com", allowCredentials = "true")
 public class UserController {
 
   @Autowired
