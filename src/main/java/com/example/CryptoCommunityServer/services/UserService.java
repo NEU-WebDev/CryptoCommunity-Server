@@ -42,7 +42,13 @@ public class UserService {
   }
 
   public boolean checkIfAdmin(String username) {
-    return adminRepo.findById(findUserByUsername(username).getId()).isPresent();
+    AdminUserJoined adminUser;
+    adminUser = adminRepo.findByUid(baseRepo.findUserByUserName(username).getId());
+    if(adminUser == null){
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public Integer makeAdmin(String username) {
