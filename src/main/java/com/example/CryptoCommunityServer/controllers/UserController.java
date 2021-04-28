@@ -79,6 +79,7 @@ public class UserController {
     return service.makeAdmin(username);
   }
 
+  @RequestMapping(value="/api/users/{username}/{newUsername}/updateUsername", method={RequestMethod.OPTIONS})
   @PostMapping("/api/users/{username}/{newUsername}/updateUsername")
   public BaseUserJoined updateUserName(
     @PathVariable ("username") String uid,
