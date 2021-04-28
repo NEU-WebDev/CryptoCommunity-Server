@@ -55,11 +55,9 @@ public class UserService {
     return 1;
   }
 
-  public BaseUserJoined updateUser(String userId, BaseUserJoined newUser) {
+  public BaseUserJoined updateUsername(String userId, String newUid) {
     BaseUserJoined originalUser = baseRepo.findUserByUserName(userId);
-    System.out.println(userId);
-    originalUser.setUsername(newUser.getUsername());
-    System.out.println(originalUser.getUsername());
+    originalUser.setUsername(newUid);
     baseRepo.save(originalUser);
     return originalUser;
   }

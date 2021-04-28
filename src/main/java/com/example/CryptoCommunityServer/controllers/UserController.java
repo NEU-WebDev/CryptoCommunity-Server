@@ -79,13 +79,13 @@ public class UserController {
     return service.makeAdmin(username);
   }
 
-  @PostMapping("/api/users/{username}/updateUsername")
+  @PostMapping("/api/users/{username}/{newUsername}/updateUsername")
   public BaseUserJoined updateUserName(
     @PathVariable ("username") String uid,
+    @PathVariable ("newUsername") String newUid,
     @RequestBody BaseUserJoined newUser
   ) {
-    System.out.println("MADE IT HERE");
-    service.updateUser(uid, newUser);
+    service.updateUsername(uid, newUid);
     return newUser;
   }
 
