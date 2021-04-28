@@ -56,7 +56,7 @@ public class UserService {
     Long id = user.getId();
     String password = user.getPassword();
     AdminUserJoined newAdmin = new AdminUserJoined(id, 0, username, password);
-    //normalRepo.deleteById(id);
+    normalRepo.deleteById(id);
     adminRepo.save(newAdmin);
     return 1;
   }
